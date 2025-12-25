@@ -149,20 +149,13 @@ const AboutSection = () => {
                 transition={{ delay: index * 0.1, duration: 0.5 }}
                 viewport={{ once: true }}
                 whileHover={{ 
-                  scale: 1.02,
-                  rotateY: 5,
-                  rotateX: 5,
+                  y: -8,
+                  transition: { duration: 0.3 }
                 }}
-                className="group relative p-6 rounded-xl bg-slate-800/50 border border-slate-700 hover:border-transparent transition-all duration-300 cursor-pointer"
-                style={{
-                  transformStyle: 'preserve-3d',
-                }}
+                className="group relative p-6 rounded-xl bg-slate-800/50 border border-slate-700 hover:border-slate-600 hover:bg-slate-800/70 transition-all duration-300 cursor-pointer"
               >
-                {/* Gradient border on hover */}
-                <div className={`absolute inset-0 rounded-xl bg-gradient-to-r ${category.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10 blur-sm`} />
-                
                 <div className="flex items-start space-x-4">
-                  <div className="text-3xl">{category.icon}</div>
+                  <div className="text-3xl group-hover:scale-110 transition-transform duration-300">{category.icon}</div>
                   <div className="flex-1">
                     <h3 className="text-xl font-semibold text-white mb-2 group-hover:text-cyan-400 transition-colors duration-300">
                       {category.title}
@@ -172,9 +165,6 @@ const AboutSection = () => {
                     </p>
                   </div>
                 </div>
-
-                {/* Shimmer effect */}
-                <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 shimmer" />
               </motion.div>
             ))}
           </motion.div>

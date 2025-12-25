@@ -24,22 +24,26 @@ function TechBadge({ position, name, color }: { position: [number, number, numbe
 
   useFrame((state) => {
     if (meshRef.current) {
-      // Floating animation
-      meshRef.current.position.y = position[1] + Math.sin(state.clock.elapsedTime + position[0]) * 0.3
-      meshRef.current.rotation.y = state.clock.elapsedTime * 0.2
-      meshRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.3) * 0.1
+      // More dynamic floating animation
+      meshRef.current.position.y = position[1] + Math.sin(state.clock.elapsedTime * 0.8 + position[0]) * 0.5
+      meshRef.current.position.x = position[0] + Math.cos(state.clock.elapsedTime * 0.5 + position[2]) * 0.2
+      meshRef.current.rotation.y = state.clock.elapsedTime * 0.3
+      meshRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.4) * 0.2
+      meshRef.current.rotation.z = Math.cos(state.clock.elapsedTime * 0.2) * 0.1
     }
   })
 
   return (
     <mesh ref={meshRef} position={position}>
-      <boxGeometry args={[1.5, 0.8, 0.1]} />
+      <boxGeometry args={[1.2, 0.6, 0.15]} />
       <meshStandardMaterial 
         color={color} 
         transparent 
-        opacity={0.8}
+        opacity={0.9}
         emissive={color}
-        emissiveIntensity={0.2}
+        emissiveIntensity={0.3}
+        metalness={0.1}
+        roughness={0.2}
       />
     </mesh>
   )
@@ -49,20 +53,21 @@ function TechBadge({ position, name, color }: { position: [number, number, numbe
 function BackgroundParticles() {
   const particlesRef = useRef<THREE.Points>(null)
   
-  const particleCount = 100
+  const particleCount = 150
   const positions = useMemo(() => {
     const pos = new Float32Array(particleCount * 3)
     for (let i = 0; i < particleCount; i++) {
-      pos[i * 3] = (Math.random() - 0.5) * 20
-      pos[i * 3 + 1] = (Math.random() - 0.5) * 20
-      pos[i * 3 + 2] = (Math.random() - 0.5) * 10
+      pos[i * 3] = (Math.random() - 0.5) * 25
+      pos[i * 3 + 1] = (Math.random() - 0.5) * 25
+      pos[i * 3 + 2] = (Math.random() - 0.5) * 15
     }
     return pos
   }, [])
 
   useFrame((state) => {
     if (particlesRef.current) {
-      particlesRef.current.rotation.y = state.clock.elapsedTime * 0.05
+      particlesRef.current.rotation.y = state.clock.elapsedTime * 0.03
+      particlesRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.02) * 0.1
     }
   })
 
@@ -77,10 +82,10 @@ function BackgroundParticles() {
         />
       </bufferGeometry>
       <pointsMaterial
-        size={0.05}
+        size={0.08}
         color="#06B6D4"
         transparent
-        opacity={0.6}
+        opacity={0.8}
         sizeAttenuation
       />
     </points>
@@ -103,10 +108,11 @@ function ParticleScene() {
 
   return (
     <>
-      {/* Lighting */}
-      <ambientLight intensity={0.5} />
-      <pointLight position={[10, 10, 10]} intensity={1} />
-      <pointLight position={[-10, -10, -10]} intensity={0.5} color="#06B6D4" />
+      {/* Enhanced Lighting */}
+      <ambientLight intensity={0.6} />
+      <pointLight position={[10, 10, 10]} intensity={1.2} color="#ffffff" />
+      <pointLight position={[-10, -10, -10]} intensity={0.8} color="#06B6D4" />
+      <pointLight position={[0, 0, 15]} intensity={0.5} color="#8B5CF6" />
       
       {/* Background particles */}
       <BackgroundParticles />
@@ -130,7 +136,7 @@ const ParticleBackground = () => {
     <div className="absolute inset-0 w-full h-full">
       <Canvas
         camera={{ position: [0, 0, 5], fov: 75 }}
-        style={{ background: 'transparent' }}
+        style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%)' }}
         dpr={[1, 2]}
         performance={{ min: 0.5 }}
       >

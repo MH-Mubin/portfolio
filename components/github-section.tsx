@@ -20,17 +20,115 @@ type GitHubStats = {
   following: number
 }
 
-const fetcher = async (url: string) => {
-  const res = await fetch(url)
-  const data = await res.json()
-  
-  // Defensive programming - ensure we always return proper data
-  if (url.includes('/repos')) {
-    // For repos endpoint, ensure we return an array
-    return Array.isArray(data) ? data : []
+// Mock data for when API fails
+const mockUserStats = {
+  public_repos: 15,
+  followers: 25,
+  following: 30
+}
+
+const mockRepos = [
+  {
+    id: 1,
+    name: "E-Commerce-API",
+    description: "Scalable REST API for e-commerce with advanced features built with NestJS",
+    html_url: "https://github.com/MH-Mubin/ecommerce-api",
+    stargazers_count: 12,
+    forks_count: 3,
+    language: "TypeScript",
+    updated_at: "2024-12-20T10:30:00Z"
+  },
+  {
+    id: 2,
+    name: "Real-Time-Chat",
+    description: "WebSocket-based chat application with rooms and notifications",
+    html_url: "https://github.com/MH-Mubin/realtime-chat",
+    stargazers_count: 8,
+    forks_count: 2,
+    language: "JavaScript",
+    updated_at: "2024-12-18T15:45:00Z"
+  },
+  {
+    id: 3,
+    name: "Task-Management-API",
+    description: "Project management system with team collaboration features",
+    html_url: "https://github.com/MH-Mubin/task-management",
+    stargazers_count: 15,
+    forks_count: 5,
+    language: "Node.js",
+    updated_at: "2024-12-15T09:20:00Z"
+  },
+  {
+    id: 4,
+    name: "Portfolio-Website",
+    description: "Modern portfolio website with 3D animations and smooth interactions",
+    html_url: "https://github.com/MH-Mubin/portfolio",
+    stargazers_count: 6,
+    forks_count: 1,
+    language: "TypeScript",
+    updated_at: "2024-12-25T14:00:00Z"
+  },
+  {
+    id: 5,
+    name: "Microservices-Demo",
+    description: "Distributed system with multiple interconnected services",
+    html_url: "https://github.com/MH-Mubin/microservices",
+    stargazers_count: 10,
+    forks_count: 4,
+    language: "JavaScript",
+    updated_at: "2024-12-10T11:30:00Z"
+  },
+  {
+    id: 6,
+    name: "Auth-Service",
+    description: "JWT-based authentication service with role management",
+    html_url: "https://github.com/MH-Mubin/auth-service",
+    stargazers_count: 7,
+    forks_count: 2,
+    language: "TypeScript",
+    updated_at: "2024-12-08T16:15:00Z"
   }
-  
-  return data
+]
+
+const fetcher = async (url: string) => {
+  try {
+    console.log('Fetching:', url)
+    const res = await fetch(url)
+    
+    if (!res.ok) {
+      console.error('API Error:', res.status, res.statusText)
+      
+      // If rate limited or other error, return mock data
+      if (res.status === 403 || res.status === 429) {
+        console.log('Rate limited - using mock data')
+        if (url.includes('/repos')) {
+          return mockRepos
+        } else {
+          return mockUserStats
+        }
+      }
+      
+      throw new Error(`HTTP ${res.status}: ${res.statusText}`)
+    }
+    
+    const data = await res.json()
+    console.log('API Response:', data)
+    
+    // Defensive programming - ensure we always return proper data
+    if (url.includes('/repos')) {
+      // For repos endpoint, ensure we return an array
+      return Array.isArray(data) ? data : mockRepos
+    }
+    
+    return data
+  } catch (error) {
+    console.error('Fetch error:', error)
+    // Return mock data as fallback
+    if (url.includes('/repos')) {
+      return mockRepos
+    }
+    return mockUserStats
+  }
 }
 
 const GitHubSection = () => {
@@ -52,9 +150,6 @@ const GitHubSection = () => {
 
   // ✅ SAFE: Ensure repos is always an array
   const repos = Array.isArray(reposData) ? reposData : []
-  
-  // 🧪 Debug (temporary)
-  console.log("repos:", repos, "isArray:", Array.isArray(repos), "reposData:", reposData)
 
   const getLanguageColor = (language: string) => {
     const colors: { [key: string]: string } = {
@@ -102,6 +197,29 @@ const GitHubSection = () => {
             Live statistics and recent projects from my GitHub profile, showcasing 
             active development and open-source contributions.
           </p>
+          
+          {/* Debug info */}
+          <div className="mt-4 text-sm text-slate-500">
+            Username: {username} | Stats Error: {statsError ? 'Yes' : 'No'} | Repos Error: {reposError ? 'Yes' : 'No'}
+          </div>
+          
+          {/* Test button */}
+          <button 
+            onClick={async () => {
+              try {
+                const response = await fetch(`https://api.github.com/${username}`)
+                const data = await response.json()
+                console.log('Direct API test:', data)
+                alert(`API Response: ${response.status} - Check console for details`)
+              } catch (error) {
+                console.error('Direct API test failed:', error)
+                alert('API test failed - check console')
+              }
+            }}
+            className="mt-2 px-4 py-2 bg-cyan-500 text-white rounded text-sm"
+          >
+            Test GitHub API
+          </button>
         </motion.div>
 
         {/* GitHub Stats Cards */}

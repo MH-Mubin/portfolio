@@ -21,11 +21,11 @@ const HeroSection = () => {
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* 3D Particle Background */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
+        <ParticleBackground />
       </div>
 
-      {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-900/50 via-transparent to-slate-900/50 z-10" />
+      {/* Subtle Gradient Overlay for text readability */}
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-900/20 via-transparent to-slate-900/20 z-10" />
 
       {/* Hero Content */}
       <div className="relative z-20 container-max text-center">
@@ -104,21 +104,6 @@ const HeroSection = () => {
             transition={{ delay: 1.5, duration: 0.6 }}
             className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
           >
-            <motion.div
-              animate={{ y: [0, 10, 0] }}
-              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-              className="flex flex-col items-center space-y-2 cursor-pointer"
-              onClick={() => scrollToSection('about')}
-            >
-              {/* <span className="text-sm text-slate-400">Scroll Down</span> */}
-              <div className="w-6 h-10 border-2 border-cyan-400 rounded-full flex justify-center">
-                <motion.div
-                  animate={{ y: [0, 12, 0] }}
-                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                  className="w-1 h-3 bg-cyan-400 rounded-full mt-2"
-                />
-              </div>
-            </motion.div>
           </motion.div>
         </motion.div>
       </div>
