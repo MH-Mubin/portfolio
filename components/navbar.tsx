@@ -1,11 +1,16 @@
 'use client'
 
 import { AnimatePresence, motion } from 'framer-motion'
+import dynamic from 'next/dynamic'
 import { useEffect, useState } from 'react'
+
+// Import Lottie dynamically to avoid SSR issues
+const Lottie = dynamic(() => import('lottie-react'), { ssr: false })
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [logoAnimation, setLogoAnimation] = useState(null)
 
   const navItems = [
     { name: 'Home', href: '#home' },
@@ -17,6 +22,18 @@ const Navbar = () => {
   ]
 
   useEffect(() => {
+    // Load logo animation
+    const loadLogoAnimation = async () => {
+      try {
+        const response = await fetch('/logo.json')
+        const animationData = await response.json()
+        setLogoAnimation(animationData)
+      } catch (error) {
+        console.error('Failed to load logo animation:', error)
+      }
+    }
+    loadLogoAnimation()
+
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50)
     }
@@ -51,8 +68,22 @@ const Navbar = () => {
             whileHover={{ scale: 1.05 }}
             className="flex items-center space-x-2"
           >
-            <div className="w-10 h-10 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-lg">M</span>
+            <div className="w-10 h-10 flex items-center justify-center">
+              {logoAnimation ? (
+                <Lottie
+                  animationData={logoAnimation}
+                  loop={true}
+                  autoplay={true}
+                  style={{
+                    width: '40px',
+                    height: '40px'
+                  }}
+                />
+              ) : (
+                <div className="w-10 h-10 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-lg flex items-center justify-center">
+                  <span className="text-white font-bold text-lg">M</span>
+                </div>
+              )}
             </div>
             <span className="text-xl font-bold gradient-text hidden sm:block">
               Mahmud Mubin
