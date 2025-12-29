@@ -59,16 +59,17 @@ const HeroSection = () => {
 
             <div className="space-y-3">
               <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-slate-200 leading-tight">
-                Backend Developer &
+                Full-Stack
                 <span className="block text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">
-                  System Architect
+                  Software Developer
                 </span>
               </h2>
             </div>
 
             <p className="text-lg md:text-xl text-slate-300 leading-relaxed max-w-xl font-light">
-              Crafting <span className="text-cyan-400 font-semibold">robust, scalable</span> backend 
-              solutions with <span className="text-emerald-400 font-semibold">Node.js</span>, 
+              Crafting <span className="text-cyan-400 font-semibold">robust, scalable</span> full stack 
+              solutions with <span className="text-emerald-400 font-semibold">React</span>, 
+              <span className="text-emerald-400 font-semibold">Node.js</span>, 
               <span className="text-red-400 font-semibold"> NestJS</span>, and 
               <span className="text-blue-400 font-semibold"> PostgreSQL</span>. 
             </p>

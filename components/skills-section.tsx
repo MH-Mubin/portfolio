@@ -14,6 +14,13 @@ const SkillsSection = () => {
   const [activeCategory, setActiveCategory] = useState('All')
 
   const skills: Skill[] = [
+    // Frontend
+    { name: 'React', level: 88, category: 'Frontend', icon: '⚛️' },
+    { name: 'Next.js', level: 85, category: 'Frontend', icon: '▲' },
+    { name: 'JavaScript', level: 90, category: 'Frontend', icon: '💛' },
+    { name: 'HTML/CSS', level: 85, category: 'Frontend', icon: '🎨' },
+    { name: 'Tailwind CSS', level: 82, category: 'Frontend', icon: '🌊' },
+    
     // Backend
     { name: 'Node.js', level: 90, category: 'Backend', icon: '🟢' },
     { name: 'NestJS', level: 85, category: 'Backend', icon: '🔴' },
@@ -34,12 +41,12 @@ const SkillsSection = () => {
     
     // DevOps
     { name: 'Docker', level: 82, category: 'DevOps', icon: '🐳' },
-    { name: 'AWS', level: 75, category: 'DevOps', icon: '☁️' },
     { name: 'Git', level: 88, category: 'DevOps', icon: '📝' },
     { name: 'CI/CD', level: 78, category: 'DevOps', icon: '🔄' },
+    { name: 'Linux', level: 75, category: 'DevOps', icon: '🐧' },
   ]
 
-  const categories = ['All', 'Backend', 'Database', 'Architecture', 'DevOps']
+  const categories = ['All', 'Frontend', 'Backend', 'Database', 'Architecture', 'DevOps']
 
   const filteredSkills = activeCategory === 'All' 
     ? skills 
@@ -66,7 +73,7 @@ const SkillsSection = () => {
           </h2>
           <p className="text-lg text-slate-400 max-w-3xl mx-auto leading-relaxed">
             A comprehensive overview of my technical skills and proficiency levels across 
-            different areas of backend development and system architecture.
+            different areas of full stack development and system architecture.
           </p>
         </motion.div>
 
@@ -107,7 +114,7 @@ const SkillsSection = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.8 }}
                 transition={{ 
-                  duration: 0.3,
+                  duration: 0.2,
                   delay: index * 0.05,
                   layout: { duration: 0.3 }
                 }}
@@ -115,8 +122,9 @@ const SkillsSection = () => {
                   scale: 1.05,
                   rotateY: 10,
                   rotateX: 5,
+                  transition: { duration: 0.15 }
                 }}
-                className="group relative p-6 rounded-xl bg-slate-800/50 border border-slate-700 hover:border-cyan-400/50 transition-all duration-300 cursor-pointer"
+                className="group relative p-6 rounded-xl bg-slate-800/50 border border-slate-700 hover:border-cyan-400/50 transition-all duration-200 cursor-pointer"
                 style={{ transformStyle: 'preserve-3d' }}
               >
                 {/* Skill Header */}
@@ -174,7 +182,7 @@ const SkillsSection = () => {
           <h3 className="text-2xl font-bold text-white mb-4">Continuous Learning</h3>
           <p className="text-slate-300 max-w-2xl mx-auto leading-relaxed">
             Technology evolves rapidly, and so do I. I'm constantly learning new frameworks, 
-            tools, and best practices to stay at the forefront of backend development. 
+            tools, and best practices to stay at the forefront of full stack development. 
             Currently exploring <span className="text-cyan-400 font-semibold">Rust</span>, 
             <span className="text-cyan-400 font-semibold"> Kubernetes</span>, and 
             <span className="text-cyan-400 font-semibold"> Event-Driven Architecture</span>.

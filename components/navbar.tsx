@@ -86,7 +86,7 @@ const Navbar = () => {
               )}
             </div>
             <span className="text-xl font-bold gradient-text hidden sm:block">
-              Mahmud Mubin
+              Mubin
             </span>
           </motion.div>
 

@@ -39,7 +39,7 @@ const AboutSection = () => {
 
   const skillCategories = [
     {
-      title: 'Backend Development',
+      title: 'Full Stack Development',
       icon: '⚙️',
       description: 'Node.js, NestJS, Express, RESTful APIs',
       gradient: 'from-green-400 to-blue-500'
@@ -78,8 +78,8 @@ const AboutSection = () => {
             About Me
           </h2>
           <p className="text-lg text-slate-400 max-w-3xl mx-auto leading-relaxed">
-            Passionate backend developer with a strong foundation in modern web technologies. 
-            I specialize in building scalable, efficient, and maintainable server-side applications.
+            Passionate full stack software developer with a strong foundation in modern web technologies. 
+            I specialize in building scalable, efficient, and maintainable applications.
           </p>
         </motion.div>
 
@@ -95,7 +95,7 @@ const AboutSection = () => {
             <div className="prose prose-lg prose-invert">
               <p className="text-slate-300 leading-relaxed">
                 Hi! I'm <span className="text-cyan-400 font-semibold">Mahmud Hasan Mubin</span>, 
-                a dedicated backend developer from Bangladesh. My journey in software development 
+                a dedicated full stack software developer from Bangladesh. My journey in software development 
                 began with a curiosity about how systems work behind the scenes.
               </p>
               
@@ -150,17 +150,17 @@ const AboutSection = () => {
                 viewport={{ once: true }}
                 whileHover={{ 
                   y: -8,
-                  transition: { duration: 0.3 }
+                  transition: { duration: 0.15 }
                 }}
-                className="group relative p-6 rounded-xl bg-slate-800/50 border border-slate-700 hover:border-slate-600 hover:bg-slate-800/70 transition-all duration-300 cursor-pointer"
+                className="group relative p-6 rounded-xl bg-slate-800/50 border border-slate-700 hover:border-slate-600 hover:bg-slate-800/70 transition-all duration-200 cursor-pointer"
               >
                 <div className="flex items-start space-x-4">
-                  <div className="text-3xl group-hover:scale-110 transition-transform duration-300">{category.icon}</div>
+                  <div className="text-3xl group-hover:scale-110 transition-transform duration-200">{category.icon}</div>
                   <div className="flex-1">
-                    <h3 className="text-xl font-semibold text-white mb-2 group-hover:text-cyan-400 transition-colors duration-300">
+                    <h3 className="text-xl font-semibold text-white mb-2 group-hover:text-cyan-400 transition-colors duration-200">
                       {category.title}
                     </h3>
-                    <p className="text-slate-400 group-hover:text-slate-300 transition-colors duration-300">
+                    <p className="text-slate-400 group-hover:text-slate-300 transition-colors duration-200">
                       {category.description}
                     </p>
                   </div>

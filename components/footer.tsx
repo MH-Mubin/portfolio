@@ -102,8 +102,8 @@ const Footer = () => {
               </span>
             </div>
             <p className="text-slate-400 leading-relaxed">
-              Backend Developer passionate about building scalable, efficient, 
-              and maintainable server-side applications with modern technologies.
+              Full Stack Software Developer passionate about building scalable, efficient, 
+              and maintainable applications with modern technologies.
             </p>
             <div className="flex space-x-4">
               {socialLinks.map((social) => (

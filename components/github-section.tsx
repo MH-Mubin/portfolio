@@ -27,65 +27,68 @@ const mockUserStats = {
   following: 30
 }
 
+// Mock contributions data
+const mockContributions = 245
+
 const mockRepos = [
   {
     id: 1,
-    name: "E-Commerce-API",
-    description: "Scalable REST API for e-commerce with advanced features built with NestJS",
-    html_url: "https://github.com/MH-Mubin/ecommerce-api",
-    stargazers_count: 12,
-    forks_count: 3,
-    language: "TypeScript",
+    name: "school-management",
+    description: "Comprehensive school administration and student management platform",
+    html_url: "https://github.com/MH-Mubin/school-management",
+    stargazers_count: 8,
+    forks_count: 2,
+    language: "JavaScript",
     updated_at: "2024-12-20T10:30:00Z"
   },
   {
     id: 2,
-    name: "Real-Time-Chat",
-    description: "WebSocket-based chat application with rooms and notifications",
-    html_url: "https://github.com/MH-Mubin/realtime-chat",
-    stargazers_count: 8,
-    forks_count: 2,
+    name: "breathing-app",
+    description: "Mindfulness and breathing exercise application for wellness and stress management",
+    html_url: "https://github.com/MH-Mubin/breathing-app",
+    stargazers_count: 5,
+    forks_count: 1,
     language: "JavaScript",
     updated_at: "2024-12-18T15:45:00Z"
   },
   {
     id: 3,
-    name: "Task-Management-API",
-    description: "Project management system with team collaboration features",
-    html_url: "https://github.com/MH-Mubin/task-management",
-    stargazers_count: 15,
-    forks_count: 5,
+    name: "headless-e-commerce",
+    description: "Modern headless e-commerce platform with API-first architecture",
+    html_url: "https://github.com/MH-Mubin/headless-e-commerce",
+    stargazers_count: 12,
+    forks_count: 4,
     language: "Node.js",
     updated_at: "2024-12-15T09:20:00Z"
   },
   {
     id: 4,
-    name: "Portfolio-Website",
-    description: "Modern portfolio website with 3D animations and smooth interactions",
-    html_url: "https://github.com/MH-Mubin/portfolio",
+    name: "bookmark-application",
+    description: "Personal bookmark manager with categorization and search functionality",
+    html_url: "https://github.com/MH-Mubin/bookmark-application",
     stargazers_count: 6,
     forks_count: 1,
-    language: "TypeScript",
-    updated_at: "2024-12-25T14:00:00Z"
+    language: "React",
+    updated_at: "2024-12-12T14:00:00Z"
   },
   {
     id: 5,
-    name: "Microservices-Demo",
-    description: "Distributed system with multiple interconnected services",
-    html_url: "https://github.com/MH-Mubin/microservices",
+    name: "Inventory-Management",
+    description: "Business inventory tracking and management solution",
+    html_url: "https://github.com/MH-Mubin/Inventory-Management",
     stargazers_count: 10,
-    forks_count: 4,
+    forks_count: 3,
     language: "JavaScript",
     updated_at: "2024-12-10T11:30:00Z"
   },
   {
     id: 6,
-    name: "Auth-Service",
-    description: "JWT-based authentication service with role management",
-    html_url: "https://github.com/MH-Mubin/auth-service",
-    stargazers_count: 7,
-    forks_count: 2,
-    language: "TypeScript",
+    name: "Task-Manager",
+    description: "Personal productivity and task management application",
+    html_url: "https://github.com/MH-Mubin/Task-Manager",
+    stargazers_count: 15,
+    forks_count: 5,
+    language: "JavaScript",
     updated_at: "2024-12-08T16:15:00Z"
   }
 ]
@@ -178,7 +181,9 @@ const GitHubSection = () => {
     })
   }
 
-  const totalStars = Array.isArray(repos) ? repos.reduce((sum, repo) => sum + repo.stargazers_count, 0) : 0
+  // Calculate contributions for this year (mock data when API fails)
+  const currentYear = new Date().getFullYear()
+  const contributionsThisYear = mockContributions
 
   return (
     <section id="github" className="section-padding">
@@ -197,29 +202,6 @@ const GitHubSection = () => {
             Live statistics and recent projects from my GitHub profile, showcasing 
             active development and open-source contributions.
           </p>
-          
-          {/* Debug info */}
-          <div className="mt-4 text-sm text-slate-500">
-            Username: {username} | Stats Error: {statsError ? 'Yes' : 'No'} | Repos Error: {reposError ? 'Yes' : 'No'}
-          </div>
-          
-          {/* Test button */}
-          <button 
-            onClick={async () => {
-              try {
-                const response = await fetch(`https://api.github.com/${username}`)
-                const data = await response.json()
-                console.log('Direct API test:', data)
-                alert(`API Response: ${response.status} - Check console for details`)
-              } catch (error) {
-                console.error('Direct API test failed:', error)
-                alert('API test failed - check console')
-              }
-            }}
-            className="mt-2 px-4 py-2 bg-cyan-500 text-white rounded text-sm"
-          >
-            Test GitHub API
-          </button>
         </motion.div>
 
         {/* GitHub Stats Cards */}
@@ -261,10 +243,10 @@ const GitHubSection = () => {
                 className="p-6 rounded-xl bg-slate-800/50 border border-slate-700 hover:border-cyan-400/50 transition-all duration-300 text-center group"
               >
                 <div className="text-3xl font-bold text-cyan-400 mb-2 group-hover:scale-110 transition-transform duration-300">
-                  {totalStars}
+                  {contributionsThisYear}
                 </div>
                 <div className="text-slate-400 group-hover:text-slate-300 transition-colors duration-300">
-                  Total Stars
+                  Contributions {currentYear}
                 </div>
               </motion.div>
 
@@ -338,7 +320,11 @@ const GitHubSection = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   viewport={{ once: true }}
-                  whileHover={{ scale: 1.02, y: -5 }}
+                  whileHover={{ 
+                    scale: 1.02, 
+                    y: -5,
+                    transition: { duration: 0.15 }
+                  }}
                   className="block p-6 rounded-xl bg-slate-800/50 border border-slate-700 hover:border-cyan-400/50 transition-all duration-300 group"
                 >
                   <div className="flex items-start justify-between mb-3">

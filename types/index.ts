@@ -63,7 +63,7 @@ export type Project = {
 export type Skill = {
   name: string
   level: number
-  category: 'Backend' | 'Database' | 'Architecture' | 'DevOps'
+  category: 'Frontend' | 'Backend' | 'Database' | 'Architecture' | 'DevOps'
   icon: string
 }
 

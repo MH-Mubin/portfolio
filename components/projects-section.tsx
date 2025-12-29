@@ -20,58 +20,82 @@ type Project = {
 const ProjectsSection = () => {
   const projects: Project[] = [
     {
-      title: 'E-Commerce API Platform',
-      description: 'Scalable REST API for e-commerce with advanced features',
-      longDescription: 'A comprehensive e-commerce backend built with NestJS, featuring user authentication, product management, order processing, payment integration, and real-time notifications.',
-      tech: ['NestJS', 'PostgreSQL', 'Redis', 'JWT', 'Stripe', 'WebSocket'],
-      github: 'https://github.com/MH-Mubin/ecommerce-api',
-      live: 'https://ecommerce-api-demo.vercel.app',
+      title: 'School Management System',
+      description: 'Comprehensive school administration and student management platform',
+      longDescription: 'A full-featured school management system built with modern web technologies. Handles student enrollment, grade management, attendance tracking, teacher assignments, and administrative workflows with role-based access control.',
+      tech: ['Node.js', 'Express', 'MongoDB', 'React', 'JWT', 'Bootstrap'],
+      github: 'https://github.com/MH-Mubin/school-management',
       metrics: [
-        { label: 'API Endpoints', value: '45+' },
-        { label: 'Response Time', value: '<100ms' },
-        { label: 'Test Coverage', value: '95%' }
+        { label: 'Students', value: '1000+' },
+        { label: 'Teachers', value: '50+' },
+        { label: 'Classes', value: '25+' }
       ],
-      gradient: 'from-purple-400 via-pink-500 to-red-500'
+      gradient: 'from-blue-400 via-purple-500 to-pink-500'
     },
     {
-      title: 'Real-Time Chat System',
-      description: 'WebSocket-based chat application with rooms and notifications',
-      longDescription: 'A real-time messaging platform built with Socket.io, featuring private/group chats, file sharing, message encryption, and push notifications.',
-      tech: ['Node.js', 'Socket.io', 'MongoDB', 'Express', 'JWT', 'Cloudinary'],
-      github: 'https://github.com/MH-Mubin/realtime-chat',
+      title: 'Headless E-Commerce System',
+      description: 'Modern headless e-commerce platform with API-first architecture',
+      longDescription: 'A scalable headless e-commerce solution built with API-first approach. Features product catalog management, shopping cart functionality, order processing, payment integration, and inventory tracking with flexible frontend integration.',
+      tech: ['Node.js', 'Express', 'MongoDB', 'Stripe', 'JWT', 'REST API'],
+      github: 'https://github.com/MH-Mubin/headless-e-commerce',
       metrics: [
-        { label: 'Concurrent Users', value: '1000+' },
-        { label: 'Message Latency', value: '<50ms' },
-        { label: 'Uptime', value: '99.9%' }
+        { label: 'Products', value: '500+' },
+        { label: 'Orders', value: '1K+' },
+        { label: 'API Calls', value: '10K+' }
       ],
       gradient: 'from-green-400 via-blue-500 to-purple-600'
     },
     {
-      title: 'Task Management API',
-      description: 'Project management system with team collaboration features',
-      longDescription: 'A comprehensive project management backend with task tracking, team collaboration, time logging, and detailed analytics dashboard.',
-      tech: ['Express.js', 'PostgreSQL', 'Prisma', 'TypeScript', 'Docker', 'AWS'],
-      github: 'https://github.com/MH-Mubin/task-management',
-      live: 'https://taskmanager-api.herokuapp.com',
+      title: 'Bookmark Application',
+      description: 'Personal bookmark manager with categorization and search',
+      longDescription: 'A full stack bookmark management application allowing users to save, organize, and search their favorite websites. Features include folder organization, tagging system, search functionality, and user authentication.',
+      tech: ['React', 'Node.js', 'Express', 'MongoDB', 'JWT', 'CSS3'],
+      github: 'https://github.com/MH-Mubin/bookmark-application',
       metrics: [
-        { label: 'Active Projects', value: '500+' },
-        { label: 'API Calls/Day', value: '10K+' },
-        { label: 'Team Size', value: '50+' }
+        { label: 'Bookmarks', value: '1K+' },
+        { label: 'Categories', value: '20+' },
+        { label: 'Users', value: '100+' }
       ],
-      gradient: 'from-cyan-400 via-blue-500 to-indigo-600'
+      gradient: 'from-yellow-400 via-orange-500 to-red-500'
     },
     {
-      title: 'Microservices Architecture',
-      description: 'Distributed system with multiple interconnected services',
-      longDescription: 'A microservices-based application demonstrating service communication, API gateway, load balancing, and distributed data management.',
-      tech: ['Node.js', 'Docker', 'Kubernetes', 'RabbitMQ', 'MongoDB', 'Nginx'],
-      github: 'https://github.com/MH-Mubin/microservices-demo',
+      title: 'Inventory Management System',
+      description: 'Business inventory tracking and management solution',
+      longDescription: 'A comprehensive inventory management system designed for businesses to track stock levels, manage suppliers, handle purchase orders, and generate detailed reports. Features real-time inventory updates and low-stock alerts.',
+      tech: ['Node.js', 'Express', 'PostgreSQL', 'React', 'Chart.js', 'JWT'],
+      github: 'https://github.com/MH-Mubin/Inventory-Management',
       metrics: [
-        { label: 'Services', value: '8' },
-        { label: 'Load Capacity', value: '5K RPS' },
-        { label: 'Scalability', value: 'Auto' }
+        { label: 'Products', value: '2K+' },
+        { label: 'Suppliers', value: '50+' },
+        { label: 'Orders', value: '500+' }
       ],
-      gradient: 'from-orange-400 via-red-500 to-pink-600'
+      gradient: 'from-indigo-400 via-purple-500 to-pink-500'
+    },
+    {
+      title: 'Breathing App',
+      description: 'Mindfulness and breathing exercise application',
+      longDescription: 'A wellness application focused on guided breathing exercises and mindfulness practices. Features customizable breathing patterns, session tracking, progress analytics, and calming visual animations to help users manage stress and improve focus.',
+      tech: ['React', 'JavaScript', 'CSS3', 'HTML5', 'Local Storage', 'Animations'],
+      github: 'https://github.com/MH-Mubin/breathing-app',
+      metrics: [
+        { label: 'Sessions', value: '1K+' },
+        { label: 'Users', value: '200+' },
+        { label: 'Rating', value: '4.8★' }
+      ],
+      gradient: 'from-teal-400 via-cyan-500 to-blue-500'
+    },
+    {
+      title: 'Task Manager',
+      description: 'Personal productivity and task management application',
+      longDescription: 'A feature-rich task management application built for personal productivity. Includes task creation, priority setting, deadline tracking, progress monitoring, and category organization with an intuitive user interface.',
+      tech: ['React', 'Node.js', 'Express', 'MongoDB', 'JWT', 'Material-UI'],
+      github: 'https://github.com/MH-Mubin/Task-Manager',
+      metrics: [
+        { label: 'Tasks', value: '5K+' },
+        { label: 'Users', value: '300+' },
+        { label: 'Completion', value: '85%' }
+      ],
+      gradient: 'from-purple-400 via-pink-500 to-red-500'
     }
   ]
 
@@ -89,7 +113,7 @@ const ProjectsSection = () => {
             Featured Projects
           </h2>
           <p className="text-lg text-slate-400 max-w-3xl mx-auto leading-relaxed">
-            A showcase of my recent backend projects demonstrating scalable architecture, 
+            A showcase of my recent full stack projects demonstrating scalable architecture, 
             clean code practices, and modern development techniques.
           </p>
         </motion.div>
@@ -104,7 +128,7 @@ const ProjectsSection = () => {
               viewport={{ once: true }}
               whileHover={{ 
                 y: -10,
-                transition: { duration: 0.3 }
+                transition: { duration: 0.15 }
               }}
               className="group relative p-8 rounded-2xl bg-slate-800/50 border border-slate-700 hover:border-slate-600 hover:bg-slate-800/70 hover:shadow-xl hover:shadow-slate-900/50 transition-all duration-300 cursor-pointer"
             >
