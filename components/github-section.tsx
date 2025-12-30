@@ -33,9 +33,9 @@ const mockContributions = 245
 const mockRepos = [
   {
     id: 1,
-    name: "school-management",
-    description: "Comprehensive school administration and student management platform",
-    html_url: "https://github.com/MH-Mubin/school-management",
+    name: "e-commerce-site",
+    description: "E-commerce website with modern design and functionality",
+    html_url: "https://github.com/MH-Mubin/e-commerce-site",
     stargazers_count: 8,
     forks_count: 2,
     language: "JavaScript",
@@ -53,39 +53,39 @@ const mockRepos = [
   },
   {
     id: 3,
-    name: "headless-e-commerce",
-    description: "Modern headless e-commerce platform with API-first architecture",
-    html_url: "https://github.com/MH-Mubin/headless-e-commerce",
+    name: "school-management",
+    description: "Comprehensive school administration and student management platform",
+    html_url: "https://github.com/MH-Mubin/school-management",
     stargazers_count: 12,
     forks_count: 4,
-    language: "Node.js",
+    language: "TypeScript",
     updated_at: "2024-12-15T09:20:00Z"
   },
   {
     id: 4,
-    name: "bookmark-application",
-    description: "Personal bookmark manager with categorization and search functionality",
-    html_url: "https://github.com/MH-Mubin/bookmark-application",
+    name: "headless-e-commerce",
+    description: "Modern headless e-commerce platform with API-first architecture",
+    html_url: "https://github.com/MH-Mubin/headless-e-commerce",
     stargazers_count: 6,
     forks_count: 1,
-    language: "React",
+    language: "Node.js",
     updated_at: "2024-12-12T14:00:00Z"
   },
   {
     id: 5,
-    name: "Inventory-Management",
-    description: "Business inventory tracking and management solution",
-    html_url: "https://github.com/MH-Mubin/Inventory-Management",
+    name: "bookmark-application",
+    description: "Personal bookmark manager with categorization and search functionality",
+    html_url: "https://github.com/MH-Mubin/bookmark-application",
     stargazers_count: 10,
     forks_count: 3,
-    language: "JavaScript",
+    language: "React",
     updated_at: "2024-12-10T11:30:00Z"
   },
   {
     id: 6,
-    name: "Task-Manager",
-    description: "Personal productivity and task management application",
-    html_url: "https://github.com/MH-Mubin/Task-Manager",
+    name: "Inventory-Management",
+    description: "Business inventory tracking and management solution",
+    html_url: "https://github.com/MH-Mubin/Inventory-Management",
     stargazers_count: 15,
     forks_count: 5,
     language: "JavaScript",
@@ -96,6 +96,15 @@ const mockRepos = [
 const fetcher = async (url: string) => {
   try {
     console.log('Fetching:', url)
+    
+    // FORCE MOCK DATA FOR NOW - Remove this later when you want real API
+    console.log('Using mock data instead of API')
+    if (url.includes('/repos')) {
+      return mockRepos
+    } else {
+      return mockUserStats
+    }
+    
     const res = await fetch(url)
     
     if (!res.ok) {
@@ -223,14 +232,28 @@ const GitHubSection = () => {
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.1 }}
+                whileHover={{ 
+                  scale: 1.05, 
+                  y: -5,
+                  transition: { 
+                    type: "tween",
+                    duration: 0.25,
+                    ease: [0.25, 0.46, 0.45, 0.94]
+                  }
+                }}
+                transition={{ 
+                  duration: 0.5, 
+                  delay: 0.1,
+                  type: "tween",
+                  ease: [0.25, 0.46, 0.45, 0.94]
+                }}
                 viewport={{ once: true }}
-                className="p-6 rounded-xl bg-slate-800/50 border border-slate-700 hover:border-cyan-400/50 transition-all duration-300 text-center group"
+                className="p-6 rounded-xl bg-slate-800/50 border border-slate-700 hover:border-cyan-400/50 text-center group"
               >
-                <div className="text-3xl font-bold text-cyan-400 mb-2 group-hover:scale-110 transition-transform duration-300">
+                <div className="text-3xl font-bold text-cyan-400 mb-2">
                   {userStats.public_repos}
                 </div>
-                <div className="text-slate-400 group-hover:text-slate-300 transition-colors duration-300">
+                <div className="text-slate-400 group-hover:text-slate-300">
                   Public Repos
                 </div>
               </motion.div>
@@ -238,14 +261,28 @@ const GitHubSection = () => {
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
+                whileHover={{ 
+                  scale: 1.05, 
+                  y: -5,
+                  transition: { 
+                    type: "tween",
+                    duration: 0.25,
+                    ease: [0.25, 0.46, 0.45, 0.94]
+                  }
+                }}
+                transition={{ 
+                  duration: 0.5, 
+                  delay: 0.2,
+                  type: "tween",
+                  ease: [0.25, 0.46, 0.45, 0.94]
+                }}
                 viewport={{ once: true }}
-                className="p-6 rounded-xl bg-slate-800/50 border border-slate-700 hover:border-cyan-400/50 transition-all duration-300 text-center group"
+                className="p-6 rounded-xl bg-slate-800/50 border border-slate-700 hover:border-cyan-400/50 transition-colors duration-200 text-center group"
               >
-                <div className="text-3xl font-bold text-cyan-400 mb-2 group-hover:scale-110 transition-transform duration-300">
+                <div className="text-3xl font-bold text-cyan-400 mb-2 transition-colors duration-200">
                   {contributionsThisYear}
                 </div>
-                <div className="text-slate-400 group-hover:text-slate-300 transition-colors duration-300">
+                <div className="text-slate-400 group-hover:text-slate-300 transition-colors duration-200">
                   Contributions {currentYear}
                 </div>
               </motion.div>
@@ -253,14 +290,28 @@ const GitHubSection = () => {
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.3 }}
+                whileHover={{ 
+                  scale: 1.05, 
+                  y: -5,
+                  transition: { 
+                    type: "tween",
+                    duration: 0.25,
+                    ease: [0.25, 0.46, 0.45, 0.94]
+                  }
+                }}
+                transition={{ 
+                  duration: 0.5, 
+                  delay: 0.3,
+                  type: "tween",
+                  ease: [0.25, 0.46, 0.45, 0.94]
+                }}
                 viewport={{ once: true }}
-                className="p-6 rounded-xl bg-slate-800/50 border border-slate-700 hover:border-cyan-400/50 transition-all duration-300 text-center group"
+                className="p-6 rounded-xl bg-slate-800/50 border border-slate-700 hover:border-cyan-400/50 transition-colors duration-200 text-center group"
               >
-                <div className="text-3xl font-bold text-cyan-400 mb-2 group-hover:scale-110 transition-transform duration-300">
+                <div className="text-3xl font-bold text-cyan-400 mb-2 transition-colors duration-200">
                   {userStats.followers}
                 </div>
-                <div className="text-slate-400 group-hover:text-slate-300 transition-colors duration-300">
+                <div className="text-slate-400 group-hover:text-slate-300 transition-colors duration-200">
                   Followers
                 </div>
               </motion.div>
@@ -268,14 +319,28 @@ const GitHubSection = () => {
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.4 }}
+                whileHover={{ 
+                  scale: 1.05, 
+                  y: -5,
+                  transition: { 
+                    type: "tween",
+                    duration: 0.25,
+                    ease: [0.25, 0.46, 0.45, 0.94]
+                  }
+                }}
+                transition={{ 
+                  duration: 0.5, 
+                  delay: 0.4,
+                  type: "tween",
+                  ease: [0.25, 0.46, 0.45, 0.94]
+                }}
                 viewport={{ once: true }}
-                className="p-6 rounded-xl bg-slate-800/50 border border-slate-700 hover:border-cyan-400/50 transition-all duration-300 text-center group"
+                className="p-6 rounded-xl bg-slate-800/50 border border-slate-700 hover:border-cyan-400/50 transition-colors duration-200 text-center group"
               >
-                <div className="text-3xl font-bold text-cyan-400 mb-2 group-hover:scale-110 transition-transform duration-300">
+                <div className="text-3xl font-bold text-cyan-400 mb-2 transition-colors duration-200">
                   {userStats.following}
                 </div>
-                <div className="text-slate-400 group-hover:text-slate-300 transition-colors duration-300">
+                <div className="text-slate-400 group-hover:text-slate-300 transition-colors duration-200">
                   Following
                 </div>
               </motion.div>
@@ -318,25 +383,34 @@ const GitHubSection = () => {
                   rel="noopener noreferrer"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  viewport={{ once: true }}
                   whileHover={{ 
                     scale: 1.02, 
                     y: -5,
-                    transition: { duration: 0.15 }
+                    transition: { 
+                      type: "tween",
+                      duration: 0.25,
+                      ease: [0.25, 0.46, 0.45, 0.94]
+                    }
                   }}
-                  className="block p-6 rounded-xl bg-slate-800/50 border border-slate-700 hover:border-cyan-400/50 transition-all duration-300 group"
+                  transition={{ 
+                    duration: 0.5, 
+                    delay: index * 0.1,
+                    type: "tween",
+                    ease: [0.25, 0.46, 0.45, 0.94]
+                  }}
+                  viewport={{ once: true }}
+                  className="block p-6 rounded-xl bg-slate-800/50 border border-slate-700 hover:border-cyan-400/50 group"
                 >
                   <div className="flex items-start justify-between mb-3">
-                    <h4 className="text-lg font-semibold text-white group-hover:text-cyan-400 transition-colors duration-300 line-clamp-1">
+                    <h4 className="text-lg font-semibold text-white group-hover:text-cyan-400 transition-colors duration-200 line-clamp-1">
                       {repo.name}
                     </h4>
-                    <svg className="w-5 h-5 text-slate-400 group-hover:text-cyan-400 transition-colors duration-300 flex-shrink-0 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 text-slate-400 group-hover:text-cyan-400 transition-colors duration-200 flex-shrink-0 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                     </svg>
                   </div>
                   
-                  <p className="text-slate-400 text-sm mb-4 line-clamp-2 group-hover:text-slate-300 transition-colors duration-300">
+                  <p className="text-slate-400 text-sm mb-4 line-clamp-2 group-hover:text-slate-300 transition-colors duration-200">
                     {repo.description || 'No description available'}
                   </p>
                   
@@ -389,7 +463,7 @@ const GitHubSection = () => {
             href={`https://github.com/${username}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-slate-800 hover:bg-slate-700 text-white font-semibold rounded-lg border border-slate-600 hover:border-cyan-400 transition-all duration-300 transform hover:scale-105"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-slate-800 hover:bg-slate-700 text-white font-semibold rounded-lg border border-slate-600 hover:border-cyan-400 transition-colors duration-200 transform hover:scale-105"
           >
             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>

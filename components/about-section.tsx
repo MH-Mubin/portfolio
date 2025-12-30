@@ -31,17 +31,23 @@ const AnimatedCounter = ({ end, duration = 2, suffix = '' }: { end: number, dura
 
 const AboutSection = () => {
   const stats = [
-    { label: 'Years Experience', value: 3, suffix: '+' },
-    { label: 'Projects Completed', value: 15, suffix: '+' },
+    { label: 'Years Experience', value: 1, suffix: '+' },
+    { label: 'Projects Completed', value: 12, suffix: '+' },
     { label: 'GitHub Contributions', value: 500, suffix: '+' },
     { label: 'Technologies Mastered', value: 12, suffix: '+' },
   ]
 
   const skillCategories = [
     {
-      title: 'Full Stack Development',
+      title: 'Frontend Development',
+      icon: '🎨',
+      description: 'React.js, Next.js, JavaScript, HTML5, CSS3, Tailwind CSS',
+      gradient: 'from-cyan-400 to-blue-500'
+    },
+    {
+      title: 'Backend Development',
       icon: '⚙️',
-      description: 'Node.js, NestJS, Express, RESTful APIs',
+      description: 'Node.js, NestJS, Express.js, RESTful APIs, Microservices',
       gradient: 'from-green-400 to-blue-500'
     },
     {
@@ -51,16 +57,10 @@ const AboutSection = () => {
       gradient: 'from-blue-400 to-purple-500'
     },
     {
-      title: 'System Architecture',
-      icon: '🏗️',
-      description: 'Microservices, Clean Architecture, Design Patterns',
-      gradient: 'from-purple-400 to-pink-500'
-    },
-    {
       title: 'DevOps & Tools',
       icon: '🚀',
-      description: 'Docker, AWS, Git, CI/CD, Testing',
-      gradient: 'from-pink-400 to-red-500'
+      description: 'Docker, AWS, Git, CI/CD, Testing, System Architecture',
+      gradient: 'from-purple-400 to-pink-500'
     },
   ]
 
@@ -100,10 +100,12 @@ const AboutSection = () => {
               </p>
               
               <p className="text-slate-300 leading-relaxed">
-                I specialize in <span className="text-cyan-400 font-semibold">Node.js</span> and 
-                <span className="text-cyan-400 font-semibold"> NestJS</span> for building robust APIs, 
-                with expertise in <span className="text-cyan-400 font-semibold">PostgreSQL</span> and 
-                <span className="text-cyan-400 font-semibold"> MongoDB</span> for data management.
+                I specialize in full stack development with <span className="text-cyan-400 font-semibold">React.js</span> and 
+                <span className="text-cyan-400 font-semibold"> Next.js</span> for creating dynamic user interfaces, 
+                and <span className="text-cyan-400 font-semibold">Node.js</span>,
+                <span className="text-cyan-400 font-semibold"> Express.js</span>, <span className="text-cyan-400 font-semibold"> NestJS</span> for building robust backend APIs. 
+                I have expertise in <span className="text-cyan-400 font-semibold">PostgreSQL</span> and 
+                <span className="text-cyan-400 font-semibold"> MongoDB</span> for comprehensive data management.
               </p>
 
               <p className="text-slate-300 leading-relaxed">
@@ -120,9 +122,23 @@ const AboutSection = () => {
                   key={stat.label}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1, duration: 0.5 }}
+                  whileHover={{ 
+                    scale: 1.05, 
+                    y: -5,
+                    transition: { 
+                      type: "tween",
+                      duration: 0.25,
+                      ease: [0.25, 0.46, 0.45, 0.94]
+                    }
+                  }}
+                  transition={{ 
+                    delay: index * 0.1, 
+                    duration: 0.5,
+                    type: "tween",
+                    ease: [0.25, 0.46, 0.45, 0.94]
+                  }}
                   viewport={{ once: true }}
-                  className="text-center p-4 rounded-lg bg-slate-800/50 border border-slate-700 hover:border-cyan-400/50 transition-colors duration-300"
+                  className="text-center p-4 rounded-lg bg-slate-800/50 border border-slate-700 hover:border-cyan-400/50"
                 >
                   <div className="text-2xl md:text-3xl font-bold text-cyan-400 mb-2">
                     <AnimatedCounter end={stat.value} suffix={stat.suffix} />
@@ -146,13 +162,22 @@ const AboutSection = () => {
                 key={category.title}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
-                viewport={{ once: true }}
                 whileHover={{ 
                   y: -8,
-                  transition: { duration: 0.15 }
+                  transition: { 
+                    type: "tween",
+                    duration: 0.25,
+                    ease: [0.25, 0.46, 0.45, 0.94]
+                  }
                 }}
-                className="group relative p-6 rounded-xl bg-slate-800/50 border border-slate-700 hover:border-slate-600 hover:bg-slate-800/70 transition-all duration-200 cursor-pointer"
+                transition={{ 
+                  delay: index * 0.1, 
+                  duration: 0.5,
+                  type: "tween",
+                  ease: [0.25, 0.46, 0.45, 0.94]
+                }}
+                viewport={{ once: true }}
+                className="group relative p-6 rounded-xl bg-slate-800/50 border border-slate-700 hover:border-slate-600 hover:bg-slate-800/70 cursor-pointer"
               >
                 <div className="flex items-start space-x-4">
                   <div className="text-3xl group-hover:scale-110 transition-transform duration-200">{category.icon}</div>

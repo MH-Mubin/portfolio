@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 const ContactSection = () => {
   const [formData, setFormData] = useState({
@@ -11,6 +11,17 @@ const ContactSection = () => {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
+
+  // Auto-hide success/error messages after 5 seconds
+  useEffect(() => {
+    if (submitStatus === 'success' || submitStatus === 'error') {
+      const timer = setTimeout(() => {
+        setSubmitStatus('idle')
+      }, 5000) // Hide after 5 seconds
+
+      return () => clearTimeout(timer)
+    }
+  }, [submitStatus])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -25,27 +36,45 @@ const ContactSection = () => {
     setSubmitStatus('idle')
 
     try {
+      console.log('Submitting form...')
+      
+      // Add timeout to prevent hanging
+      const controller = new AbortController()
+      const timeoutId = setTimeout(() => controller.abort(), 10000) // 10 second timeout
+      
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
+        signal: controller.signal,
         body: JSON.stringify({
-          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY || 'your_web3forms_access_key_here',
+          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY,
           name: formData.name,
           email: formData.email,
           message: formData.message,
-          subject: `New Portfolio Contact from ${formData.name}`,
+          subject: `Portfolio Contact from ${formData.name}`,
+          from_name: formData.name,
+          replyto: formData.email,
         }),
       })
 
-      if (response.ok) {
+      clearTimeout(timeoutId)
+      const result = await response.json()
+      console.log('Web3Forms response:', result)
+
+      if (response.ok && result.success) {
         setSubmitStatus('success')
         setFormData({ name: '', email: '', message: '' })
       } else {
+        console.error('Web3Forms error:', result)
         setSubmitStatus('error')
       }
     } catch (error) {
+      console.error('Form submission error:', error)
+      if (error instanceof Error && error.name === 'AbortError') {
+        console.error('Request timed out')
+      }
       setSubmitStatus('error')
     } finally {
       setIsSubmitting(false)
@@ -91,7 +120,7 @@ const ContactSection = () => {
       ),
       label: 'LinkedIn',
       value: 'Mahmud Hasan Mubin',
-      href: 'https://linkedin.com/in/mh-mubin'
+      href: 'https://www.linkedin.com/in/mahmud-hasan-mubin/'
     }
   ]
 
@@ -175,6 +204,9 @@ const ContactSection = () => {
                   />
                 </div>
 
+                {/* Honeypot field for spam protection */}
+                <input type="checkbox" name="botcheck" className="hidden" style={{display: 'none'}} />
+
                 <button
                   type="submit"
                   disabled={isSubmitting}
@@ -190,8 +222,8 @@ const ContactSection = () => {
                     </>
                   ) : (
                     <>
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
                       </svg>
                       Send Message
                     </>
@@ -203,6 +235,8 @@ const ContactSection = () => {
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.3 }}
                     className="p-4 bg-green-500/20 border border-green-500/50 rounded-lg text-green-400 text-center"
                   >
                     ✅ Message sent successfully! I'll get back to you soon.
@@ -213,6 +247,8 @@ const ContactSection = () => {
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.3 }}
                     className="p-4 bg-red-500/20 border border-red-500/50 rounded-lg text-red-400 text-center"
                   >
                     ❌ Failed to send message. Please try again or contact me directly.
@@ -242,10 +278,23 @@ const ContactSection = () => {
                     rel={info.href.startsWith('http') ? 'noopener noreferrer' : undefined}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.1, duration: 0.5 }}
+                    whileHover={{ 
+                      scale: 1.02, 
+                      x: 5,
+                      transition: { 
+                        type: "tween",
+                        duration: 0.25,
+                        ease: [0.25, 0.46, 0.45, 0.94]
+                      }
+                    }}
+                    transition={{ 
+                      delay: index * 0.1, 
+                      duration: 0.5,
+                      type: "tween",
+                      ease: [0.25, 0.46, 0.45, 0.94]
+                    }}
                     viewport={{ once: true }}
-                    whileHover={{ scale: 1.02, x: 5 }}
-                    className="flex items-center space-x-4 p-4 rounded-lg bg-slate-700/50 hover:bg-slate-700 transition-all duration-300 group"
+                    className="flex items-center space-x-4 p-4 rounded-lg bg-slate-700/50 hover:bg-slate-700 group"
                   >
                     <div className="flex-shrink-0 w-12 h-12 bg-cyan-500/20 rounded-lg flex items-center justify-center text-cyan-400 group-hover:bg-cyan-500/30 transition-colors duration-300">
                       {info.icon}

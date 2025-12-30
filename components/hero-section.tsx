@@ -68,7 +68,7 @@ const HeroSection = () => {
 
             <p className="text-lg md:text-xl text-slate-300 leading-relaxed max-w-xl font-light">
               Crafting <span className="text-cyan-400 font-semibold">robust, scalable</span> full stack 
-              solutions with <span className="text-emerald-400 font-semibold">React</span>, 
+              solutions with <span className="text-blue-400 font-semibold">React</span>, 
               <span className="text-emerald-400 font-semibold">Node.js</span>, 
               <span className="text-red-400 font-semibold"> NestJS</span>, and 
               <span className="text-blue-400 font-semibold"> PostgreSQL</span>. 
