@@ -12,6 +12,7 @@
   "dependencies": {
     "@lottiefiles/dotlottie-react": "^0.17.12",
     "@react-three/fiber": "8.13.0",
+    "@vercel/analytics": "^1.6.1",
     "autoprefixer": "10.4.16",
     "framer-motion": "10.16.0",
     "lottie-react": "^2.4.1",

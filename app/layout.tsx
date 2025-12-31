@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/react'
 import React from 'react'
 import './globals.css'
 
@@ -57,6 +58,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <div className="min-h-screen w-full overflow-x-hidden">
           {children}
         </div>
+        <Analytics />
       </body>
     </html>
   )
