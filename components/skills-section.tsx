@@ -15,7 +15,7 @@ const SkillsSection = () => {
 
   // Function to render technology logos using SVG assets
   const renderSkillIcon = (skillName: string) => {
-    const iconProps = { className: "w-8 h-8" };
+    const iconProps = { className: "w-10 h-10" };
 
     // Map skill names to their corresponding SVG file names
     const svgMap: { [key: string]: string } = {
@@ -44,7 +44,7 @@ const SkillsSection = () => {
         <img
           src={`/Assets/${svgFileName}`}
           alt={skillName}
-          className="w-8 h-8"
+          className="w-10 h-10"
         />
       );
     }
@@ -221,11 +221,11 @@ const SkillsSection = () => {
                   delay: index * 0.03,
                   layout: { duration: 0.3 },
                 }}
-                className="group relative p-5 rounded-xl bg-slate-800/50 border border-slate-700/50 hover:border-transparent cursor-pointer overflow-hidden"
+                className="group relative p-5 rounded-xl bg-gradient-to-br from-slate-700/80 to-slate-800/80 border border-slate-600/50 hover:border-transparent cursor-pointer overflow-hidden shadow-lg shadow-slate-900/20"
               >
                 {/* Animated gradient border on hover */}
                 <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-cyan-400 via-blue-500 to-purple-600 p-[1px]">
-                  <div className="absolute inset-[1px] rounded-xl bg-slate-800" />
+                  <div className="absolute inset-[1px] rounded-xl bg-gradient-to-br from-slate-700 to-slate-800" />
                 </div>
 
                 {/* Animated gradient background on hover */}
