@@ -1,0 +1,284 @@
+.top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 32px;
+}
+
+.facts {
+  margin-top: 32px;
+  border-top: 1px solid var(--line);
+}
+
+.facts div {
+  display: grid;
+  grid-template-columns: 104px 1fr;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 14.5px;
+}
+
+.facts dt {
+  font: 500 11.5px/1.9 var(--mono);
+  color: var(--tx3);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.story p {
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--tx2);
+}
+
+.story p + p {
+  margin-top: 18px;
+}
+
+.story p:first-child {
+  color: var(--tx);
+}
+
+/* build ⇄ verify table */
+.table {
+  margin-top: 56px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--s1);
+  overflow: hidden;
+}
+
+.tableHead,
+.row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  padding: 0 18px;
+}
+
+.tableHead {
+  grid-template-columns: auto auto;
+  justify-content: start;
+  gap: 18px;
+  padding-top: 20px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--line);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.tableHead span {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tableHead .by {
+  display: none;
+}
+
+.build::before,
+.verify::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--dev);
+}
+
+.verify::before {
+  background: var(--ac);
+}
+
+.row {
+  gap: 6px;
+  padding-top: 18px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--line);
+  font-size: 14.5px;
+  color: var(--tx2);
+  transition: background-color 0.5s var(--e), color 0.4s;
+}
+
+.row:last-child {
+  border-bottom: 0;
+}
+
+.row:hover {
+  background: var(--s2);
+  color: var(--tx);
+}
+
+.buildItem,
+.verifyItem {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.buildItem::before,
+.verifyItem::before {
+  content: '';
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--dev);
+  transform: translateY(-2px);
+}
+
+.verifyItem::before {
+  background: var(--ac);
+}
+
+.swap {
+  display: none;
+  text-align: center;
+  font-family: var(--mono);
+  color: var(--tx3);
+  transition: color 0.4s, transform 0.5s var(--e);
+}
+
+.row:hover .swap {
+  color: var(--ac);
+  transform: scale(1.2);
+}
+
+/* how I test */
+.how {
+  margin-top: 56px;
+}
+
+.howGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 14px;
+  margin-top: 22px;
+}
+
+.howCard {
+  height: 100%;
+  padding: 22px;
+}
+
+.number {
+  font: 12px var(--mono);
+  color: var(--tx3);
+  transition: color 0.45s;
+}
+
+.number::before {
+  content: '(';
+}
+
+.number::after {
+  content: ')';
+}
+
+.howCard:hover .number {
+  color: var(--ac);
+}
+
+.howCard h3 {
+  margin-top: 16px;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+.howCard p {
+  margin-top: 8px;
+  font-size: 14px;
+  line-height: 1.62;
+  color: var(--tx2);
+}
+
+.learning {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  margin-top: 22px;
+  padding: 18px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  font-size: 14px;
+  color: var(--tx2);
+}
+
+.learning b {
+  margin-right: 6px;
+  font: 500 12px var(--mono);
+  color: var(--tx3);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.learning span + span::before {
+  content: '·';
+  margin-right: 12px;
+  color: var(--tx3);
+}
+
+@media (min-width: 641px) {
+  .story p {
+    font-size: 17px;
+  }
+
+  .tableHead,
+  .row {
+    grid-template-columns: minmax(0, 1fr) 120px minmax(0, 1fr);
+    align-items: center;
+    padding-left: 28px;
+    padding-right: 28px;
+  }
+
+  .tableHead {
+    justify-content: stretch;
+    gap: 0;
+    font-size: 19px;
+  }
+
+  .tableHead .by {
+    display: flex;
+    justify-content: center;
+    white-space: nowrap;
+    font: 500 11px var(--mono);
+    color: var(--tx3);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .row {
+    gap: 0;
+    font-size: 15px;
+  }
+
+  .buildItem::before,
+  .verifyItem::before {
+    display: none;
+  }
+
+  .swap {
+    display: block;
+  }
+
+  .howGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .howCard {
+    padding: 26px;
+  }
+}
+
+@media (min-width: 1101px) {
+  .top {
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 64px;
+  }
+
+  .facts {
+    max-width: 460px;
+  }
+}

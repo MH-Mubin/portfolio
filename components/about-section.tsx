@@ -1,202 +1,71 @@
-'use client'
+import { buildVerify, facts, story } from '@/data/about'
+import { learning, principles } from '@/data/skills'
+import { pad2 } from '@/lib/format'
+import { vars } from '@/lib/style'
+import SectionHeading, { Kicker } from './ui/section-heading'
+import styles from './about-section.module.css'
 
-import { motion, useInView } from 'framer-motion'
-import { useEffect, useRef, useState } from 'react'
-
-// Animated counter component
-const AnimatedCounter = ({ end, duration = 2, suffix = '' }: { end: number, duration?: number, suffix?: string }) => {
-  const [count, setCount] = useState(0)
-  const ref = useRef<HTMLSpanElement>(null)
-  const isInView = useInView(ref, { once: true })
-
-  useEffect(() => {
-    if (isInView) {
-      let startTime: number
-      const animate = (currentTime: number) => {
-        if (!startTime) startTime = currentTime
-        const progress = Math.min((currentTime - startTime) / (duration * 1000), 1)
-        
-        setCount(Math.floor(progress * end))
-        
-        if (progress < 1) {
-          requestAnimationFrame(animate)
-        }
-      }
-      requestAnimationFrame(animate)
-    }
-  }, [isInView, end, duration])
-
-  return <span ref={ref}>{count}{suffix}</span>
-}
-
-const AboutSection = () => {
-  const stats = [
-    { label: 'Years Experience', value: 1, suffix: '+' },
-    { label: 'Projects Completed', value: 12, suffix: '+' },
-    { label: 'GitHub Contributions', value: 500, suffix: '+' },
-    { label: 'Technologies Mastered', value: 12, suffix: '+' },
-  ]
-
-  const skillCategories = [
-    {
-      title: 'Frontend Development',
-      icon: '🎨',
-      description: 'React.js, Next.js, JavaScript, HTML5, CSS3, Tailwind CSS',
-      gradient: 'from-cyan-400 to-blue-500'
-    },
-    {
-      title: 'Backend Development',
-      icon: '⚙️',
-      description: 'Node.js, NestJS, Express.js, RESTful APIs, Microservices',
-      gradient: 'from-green-400 to-blue-500'
-    },
-    {
-      title: 'Database Management',
-      icon: '🗄️',
-      description: 'PostgreSQL, MongoDB, Redis, Prisma ORM',
-      gradient: 'from-blue-400 to-purple-500'
-    },
-    {
-      title: 'DevOps & Tools',
-      icon: '🚀',
-      description: 'Docker, AWS, Git, CI/CD, Testing, System Architecture',
-      gradient: 'from-purple-400 to-pink-500'
-    },
-  ]
-
-  return (
-    <section id="about" className="section-padding bg-slate-900/50">
-      <div className="container-max">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold gradient-text mb-6">
-            About Me
-          </h2>
-          <p className="text-lg text-slate-400 max-w-3xl mx-auto leading-relaxed">
-            Passionate full stack software developer with a strong foundation in modern web technologies. 
-            I specialize in building scalable, efficient, and maintainable applications.
-          </p>
-        </motion.div>
-
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Bio Section */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="space-y-6"
-          >
-            <div className="prose prose-lg prose-invert">
-              <p className="text-slate-300 leading-relaxed">
-                Hi! I'm <span className="text-cyan-400 font-semibold">Mahmud Hasan Mubin</span>, 
-                a dedicated full stack software developer from Bangladesh. My journey in software development 
-                began with a curiosity about how systems work behind the scenes.
-              </p>
-              
-              <p className="text-slate-300 leading-relaxed">
-                I specialize in full stack development with <span className="text-cyan-400 font-semibold">React.js</span> and 
-                <span className="text-cyan-400 font-semibold"> Next.js</span> for creating dynamic user interfaces, 
-                and <span className="text-cyan-400 font-semibold">Node.js</span>,
-                <span className="text-cyan-400 font-semibold"> Express.js</span>, <span className="text-cyan-400 font-semibold"> NestJS</span> for building robust backend APIs. 
-                I have expertise in <span className="text-cyan-400 font-semibold">PostgreSQL</span> and 
-                <span className="text-cyan-400 font-semibold"> MongoDB</span> for comprehensive data management.
-              </p>
-
-              <p className="text-slate-300 leading-relaxed">
-                When I'm not coding, you'll find me exploring new technologies, contributing to 
-                open-source projects, or sharing knowledge with the developer community. I believe 
-                in writing clean, maintainable code that scales.
-              </p>
+const AboutSection = () => (
+  <section id="about" className="section">
+    <div className={styles.top}>
+      <div>
+        <SectionHeading index="01" kicker="About" title="About me" />
+        <dl className={styles.facts} data-r style={vars({ '--d': 2 })}>
+          {facts.map((fact) => (
+            <div key={fact.label}>
+              <dt>{fact.label}</dt>
+              <dd>{fact.value}</dd>
             </div>
-
-            {/* Stats Grid */}
-            <div className="grid grid-cols-2 gap-6 pt-8">
-              {stats.map((stat, index) => (
-                <motion.div
-                  key={stat.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  whileHover={{ 
-                    scale: 1.05, 
-                    y: -5,
-                    transition: { 
-                      type: "tween",
-                      duration: 0.25,
-                      ease: [0.25, 0.46, 0.45, 0.94]
-                    }
-                  }}
-                  transition={{ 
-                    delay: index * 0.1, 
-                    duration: 0.5,
-                    type: "tween",
-                    ease: [0.25, 0.46, 0.45, 0.94]
-                  }}
-                  viewport={{ once: true }}
-                  className="text-center p-4 rounded-lg bg-slate-800/50 border border-slate-700 hover:border-cyan-400/50"
-                >
-                  <div className="text-2xl md:text-3xl font-bold text-cyan-400 mb-2">
-                    <AnimatedCounter end={stat.value} suffix={stat.suffix} />
-                  </div>
-                  <div className="text-sm text-slate-400">{stat.label}</div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Skill Categories */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="grid gap-6"
-          >
-            {skillCategories.map((category, index) => (
-              <motion.div
-                key={category.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                whileHover={{ 
-                  y: -8,
-                  transition: { 
-                    type: "tween",
-                    duration: 0.25,
-                    ease: [0.25, 0.46, 0.45, 0.94]
-                  }
-                }}
-                transition={{ 
-                  delay: index * 0.1, 
-                  duration: 0.5,
-                  type: "tween",
-                  ease: [0.25, 0.46, 0.45, 0.94]
-                }}
-                viewport={{ once: true }}
-                className="group relative p-6 rounded-xl bg-slate-800/50 border border-slate-700 hover:border-slate-600 hover:bg-slate-800/70 cursor-pointer"
-              >
-                <div className="flex items-start space-x-4">
-                  <div className="text-3xl group-hover:scale-110 transition-transform duration-200">{category.icon}</div>
-                  <div className="flex-1">
-                    <h3 className="text-xl font-semibold text-white mb-2 group-hover:text-cyan-400 transition-colors duration-200">
-                      {category.title}
-                    </h3>
-                    <p className="text-slate-400 group-hover:text-slate-300 transition-colors duration-200">
-                      {category.description}
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
+          ))}
+        </dl>
       </div>
-    </section>
-  )
-}
+      <div className={styles.story} data-r style={vars({ '--d': 2 })}>
+        {story.map((paragraph) => (
+          <p key={paragraph.slice(0, 32)}>{paragraph}</p>
+        ))}
+      </div>
+    </div>
+
+    <div className={styles.table} data-r>
+      <div className={styles.tableHead}>
+        <span className={styles.build}>I build</span>
+        <span className={styles.by} aria-hidden="true">
+          verified by
+        </span>
+        <span className={styles.verify}>I verify</span>
+      </div>
+      {buildVerify.map((pair) => (
+        <div key={pair.build} className={styles.row}>
+          <span className={styles.buildItem}>{pair.build}</span>
+          <span className={styles.swap} aria-hidden="true">
+            ⇄
+          </span>
+          <span className={styles.verifyItem}>{pair.verify}</span>
+        </div>
+      ))}
+    </div>
+
+    <div className={styles.how}>
+      <Kicker>How I test</Kicker>
+      <div className={styles.howGrid}>
+        {principles.map((principle, i) => (
+          <div key={principle.title} data-r style={vars({ '--d': i })}>
+            <article className={`hv ${styles.howCard}`}>
+              <span className={styles.number}>{pad2(i + 1)}</span>
+              <h3>{principle.title}</h3>
+              <p>{principle.description}</p>
+            </article>
+          </div>
+        ))}
+      </div>
+      <p className={styles.learning} data-r>
+        <b>Currently learning</b>
+        {learning.map((item) => (
+          <span key={item}>{item}</span>
+        ))}
+      </p>
+    </div>
+  </section>
+)
 
 export default AboutSection

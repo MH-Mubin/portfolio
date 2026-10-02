@@ -1,0 +1,43 @@
+.kicker {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font: 500 12px/1.5 var(--mono);
+  color: var(--tx3);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.kicker b {
+  font-weight: 500;
+  color: var(--ac);
+}
+
+.kicker::after {
+  content: '';
+  width: 48px;
+  height: 1px;
+  background: var(--line2);
+}
+
+.title {
+  margin-top: 18px;
+  font-size: 34px;
+  font-weight: 600;
+  letter-spacing: -0.045em;
+  line-height: 1.05;
+}
+
+.subtitle {
+  max-width: 640px;
+  margin-top: 14px;
+  font-size: 16px;
+  line-height: 1.62;
+  color: var(--tx2);
+}
+
+@media (min-width: 641px) {
+  .title {
+    font-size: 46px;
+  }
+}
