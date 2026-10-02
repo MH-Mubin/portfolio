@@ -1,0 +1,302 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  flex: none;
+  width: calc(100vw - 2 * var(--pad) - 20px);
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--s1);
+  transition: transform 0.45s var(--e), border-color 0.45s, background-color 0.45s;
+}
+
+/* stretch keeps every card at the tallest card's height; children must never shrink */
+.card > * {
+  flex-shrink: 0;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: var(--line2);
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  font: 500 11.5px var(--mono);
+  color: var(--tx2);
+}
+
+.tag::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ac);
+}
+
+.card[data-kind='dev'] .tag::before {
+  background: var(--dev);
+}
+
+.meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font: 11.5px var(--mono);
+  color: var(--tx3);
+}
+
+.wip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 3px 9px;
+  border: 1px solid rgba(251, 191, 36, 0.22);
+  border-radius: 999px;
+  background: rgba(251, 191, 36, 0.08);
+  font: 500 11px var(--mono);
+  color: var(--warn);
+}
+
+.wip :global(.pulse) {
+  width: 6px;
+  height: 6px;
+}
+
+.title {
+  margin-top: 18px;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+
+.context {
+  margin-top: 6px;
+  font: 12px var(--mono);
+  color: var(--tx3);
+}
+
+.summary {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+  overflow: hidden;
+  margin-top: 16px;
+  font-size: 13.5px;
+  line-height: 1.62;
+  color: var(--tx2);
+}
+
+.featured .summary {
+  -webkit-line-clamp: 3;
+}
+
+.checks {
+  display: grid;
+  gap: 5px;
+  margin-top: 16px;
+  font: 11.5px/1.5 var(--mono);
+  color: var(--tx2);
+}
+
+.checks li {
+  display: flex;
+  gap: 10px;
+}
+
+/* phones show only the defect the case study is known for */
+.checks li[data-status='pass'] {
+  display: none;
+}
+
+.checks i {
+  font-style: normal;
+  color: var(--ac);
+}
+
+.checks li[data-status='fail'] i {
+  color: #f87171;
+}
+
+.checks em {
+  display: block;
+  font-style: normal;
+  color: var(--warn);
+}
+
+.chips {
+  margin-top: auto;
+  padding-top: 18px;
+}
+
+.foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  font-size: 13px;
+  color: var(--tx3);
+}
+
+.foot a,
+.read {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 32px;
+  font-weight: 500;
+  color: var(--tx);
+}
+
+.read {
+  font-size: 13px;
+}
+
+.card:hover .foot a :global(.arr) {
+  transform: translate(2px, -2px);
+}
+
+.card:hover .read :global(.arr),
+.end:hover .go :global(.arr) {
+  transform: translateX(4px);
+}
+
+.end {
+  justify-content: space-between;
+  border-style: dashed;
+  background: transparent;
+}
+
+.end h4 {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.end p {
+  margin-top: 10px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--tx2);
+}
+
+.go {
+  font-weight: 500;
+}
+
+@media (min-width: 641px) {
+  .card {
+    width: 380px;
+    padding: 26px;
+  }
+
+  .featured {
+    width: 600px;
+  }
+
+  .end {
+    width: 320px;
+  }
+
+  .title {
+    margin-top: 22px;
+    font-size: 22px;
+  }
+
+  .summary {
+    -webkit-line-clamp: 6;
+    font-size: 14px;
+  }
+
+  .featured .summary {
+    -webkit-line-clamp: 3;
+  }
+
+  .checks {
+    gap: 7px;
+    font-size: 12.5px;
+  }
+
+  .checks li[data-status='pass'] {
+    display: flex;
+  }
+
+  .checks em {
+    display: inline;
+    margin-left: 8px;
+    white-space: nowrap;
+  }
+}
+
+/* fit tiers, set on the rail by project-rail.tsx when the cards would not fit the screen height */
+:global([data-tier~='compact']) .card {
+  padding: 20px;
+}
+
+:global([data-tier~='compact']) .title {
+  margin-top: 14px;
+  font-size: 20px;
+}
+
+:global([data-tier~='compact']) .summary {
+  -webkit-line-clamp: 3;
+  margin-top: 10px;
+}
+
+:global([data-tier~='compact']) .checks li[data-status='pass'] {
+  display: none;
+}
+
+:global([data-tier~='compact']) .chips {
+  max-height: 68px;
+  overflow: hidden;
+  padding-top: 14px;
+}
+
+:global([data-tier~='compact']) .foot {
+  margin-top: 12px;
+  padding-top: 12px;
+}
+
+:global([data-tier~='tight']) .context {
+  display: none;
+}
+
+:global([data-tier~='tight']) .title {
+  margin-top: 10px;
+}
+
+:global([data-tier~='tight']) .summary {
+  -webkit-line-clamp: 2;
+}
+
+:global([data-tier~='tight']) .checks {
+  margin-top: 10px;
+}
+
+:global([data-tier~='tight']) .chips {
+  max-height: 40px;
+  padding-top: 12px;
+}
+
+:global([data-tier~='free']) .card {
+  scroll-snap-align: start;
+  scroll-margin-left: var(--pad);
+}

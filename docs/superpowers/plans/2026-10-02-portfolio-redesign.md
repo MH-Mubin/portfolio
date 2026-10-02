@@ -753,13 +753,16 @@ export const vars = (values: Record<string, string | number>) => values as CSSPr
 
 ```ts
 /**
- * Smooth-scrolls to a section and records it in the URL. Called from inside a closing side panel, so it clears the
- * panel's scroll lock first; the panel's own cleanup would only run after this click.
+ * Smooth-scrolls to a section and records it in the URL. Called from inside a closing side panel, so it waits one
+ * frame: by then the panel has released its scroll lock and handed focus back, which would otherwise cancel the
+ * smooth scroll.
  */
 export const scrollToSection = (id: string) => {
-  document.documentElement.style.overflow = ''
-  document.getElementById(id)?.scrollIntoView({ block: 'start' })
-  history.replaceState(null, '', `#${id}`)
+  requestAnimationFrame(() => {
+    document.documentElement.style.overflow = ''
+    document.getElementById(id)?.scrollIntoView({ block: 'start' })
+    history.replaceState(null, '', `#${id}`)
+  })
 }
 ```
 
@@ -6190,7 +6193,7 @@ async (page) => {
     await page.getByRole('button', { name: 'Open menu' }).click()
     await page.waitForTimeout(900)
     out.menuWidthPct = await page.evaluate(() => Math.round(document.getElementById('site-menu').getBoundingClientRect().width / document.documentElement.clientWidth * 100))
-    await page.locator(`#site-menu a[href="#${id}"]`).click()
+    await page.locator(`#site-menu nav a[href="#${id}"]`).click()
     await page.waitForTimeout(2500)
     out.links.push(await page.evaluate((id) => {
       const gap = document.getElementById(id).getBoundingClientRect().top - document.getElementById('site-nav').getBoundingClientRect().bottom

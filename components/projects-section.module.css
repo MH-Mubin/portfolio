@@ -1,0 +1,13 @@
+.section {
+  padding-top: 88px;
+}
+
+.head {
+  padding: 0 var(--gutter);
+}
+
+@media (min-width: 641px) {
+  .section {
+    padding-top: 104px;
+  }
+}

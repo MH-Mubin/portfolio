@@ -1,0 +1,209 @@
+.rail {
+  position: relative;
+}
+
+.sticky {
+  position: sticky;
+  top: var(--navH);
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto minmax(0, 1fr);
+  height: calc(100vh - var(--navH));
+  height: calc(100svh - var(--navH));
+  overflow: hidden;
+}
+
+.head {
+  align-self: end;
+  padding: 12px var(--gutter) 16px;
+}
+
+.eyebrow {
+  font: 500 11px var(--mono);
+  color: var(--ac);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.rail[data-kind='personal'] .eyebrow {
+  color: var(--dev);
+}
+
+.title {
+  margin-top: 10px;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 1.15;
+}
+
+.subtitle {
+  display: none;
+  max-width: 620px;
+  margin-top: 8px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--tx2);
+}
+
+.viewport {
+  overflow: hidden;
+}
+
+.track {
+  display: flex;
+  align-items: stretch;
+  gap: 12px;
+  width: max-content;
+  padding: 6px var(--gutter);
+  will-change: transform;
+}
+
+.foot {
+  align-self: start;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
+  padding: 16px var(--gutter) 0;
+}
+
+.progress {
+  flex: 1;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--line);
+  overflow: hidden;
+}
+
+.progress i {
+  display: block;
+  height: 100%;
+  background: var(--ac);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.rail[data-kind='personal'] .progress i {
+  background: var(--dev);
+}
+
+.count {
+  min-width: 58px;
+  text-align: right;
+  font: 500 12px var(--mono);
+  color: var(--tx3);
+}
+
+.count b {
+  font-weight: 500;
+  color: var(--tx);
+}
+
+.hint {
+  flex-basis: 100%;
+  font: 12px var(--mono);
+  color: var(--tx3);
+}
+
+.hintFree {
+  display: none;
+}
+
+@media (min-width: 641px) {
+  .head {
+    padding: 16px var(--gutter) 24px;
+  }
+
+  .eyebrow {
+    font-size: 12px;
+  }
+
+  .title {
+    font-size: 30px;
+  }
+
+  .track {
+    gap: 20px;
+  }
+
+  .foot {
+    padding-top: 22px;
+  }
+
+  .progress {
+    flex: none;
+    width: 160px;
+  }
+
+  .hint {
+    flex-basis: auto;
+    margin-left: auto;
+  }
+}
+
+@media (min-width: 1101px) {
+  .subtitle {
+    display: block;
+  }
+}
+
+/* fit tiers (see project-rail.tsx) */
+.rail[data-tier~='compact'] .subtitle {
+  display: none;
+}
+
+.rail[data-tier~='compact'] .head {
+  padding-bottom: 16px;
+}
+
+.rail[data-tier~='compact'] .foot {
+  padding-top: 16px;
+}
+
+.rail[data-tier~='tight'] .head {
+  padding-top: 8px;
+  padding-bottom: 14px;
+}
+
+.rail[data-tier~='tight'] .foot {
+  padding-top: 12px;
+}
+
+.rail[data-tier~='tight'] .hint {
+  display: none;
+}
+
+/* too short even for tight (e.g. a phone held sideways): a plain swipe rail, nothing pinned or clipped */
+.rail[data-tier~='free'] .sticky {
+  position: static;
+  display: block;
+  height: auto;
+  padding: 24px 0;
+}
+
+.rail[data-tier~='free'] .viewport {
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+}
+
+.rail[data-tier~='free'] .viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.rail[data-tier~='free'] .track {
+  transform: none !important;
+}
+
+.rail[data-tier~='free'] .hint {
+  display: block;
+}
+
+.rail[data-tier~='free'] .hintPinned {
+  display: none;
+}
+
+.rail[data-tier~='free'] .hintFree {
+  display: inline;
+}
