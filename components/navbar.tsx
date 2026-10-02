@@ -1,161 +1,93 @@
 'use client'
 
-import { AnimatePresence, motion } from 'framer-motion'
-import dynamic from 'next/dynamic'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { navItems, type SectionId } from '@/data/nav'
+import { site } from '@/data/site'
+import SideMenu from './nav/side-menu'
+import { useActiveSection } from './nav/use-active-section'
+import styles from './navbar.module.css'
 
-// Import Lottie dynamically to avoid SSR issues
-const Lottie = dynamic(() => import('lottie-react'), { ssr: false })
+type Indicator = { left: number; width: number } | null
 
 const Navbar = () => {
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const [logoAnimation, setLogoAnimation] = useState(null)
-
-  const navItems = [
-    { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'GitHub', href: '#github' },
-    { name: 'Contact', href: '#contact' },
-  ]
+  const active = useActiveSection()
+  const [scrolled, setScrolled] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [hovered, setHovered] = useState<SectionId | null>(null)
+  const [indicator, setIndicator] = useState<Indicator>(null)
+  const linksRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
-    // Load logo animation
-    const loadLogoAnimation = async () => {
-      try {
-        const response = await fetch('/logo.json')
-        const animationData = await response.json()
-        setLogoAnimation(animationData)
-      } catch (error) {
-        console.error('Failed to load logo animation:', error)
-      }
-    }
-    loadLogoAnimation()
-
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
-    }
-
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+    const onScroll = () => setScrolled(window.scrollY > 8)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href)
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
-      setIsMobileMenuOpen(false)
+  // The highlight follows the hovered link and rests on the section in view.
+  const target = hovered ?? active
+  useEffect(() => {
+    const links = linksRef.current
+    if (!links) return
+    const place = () => {
+      const link = target ? links.querySelector<HTMLAnchorElement>(`a[href="#${target}"]`) : null
+      setIndicator(link ? { left: link.offsetLeft, width: link.offsetWidth } : null)
     }
-  }
+    place()
+    const observer = new ResizeObserver(place)
+    observer.observe(links)
+    return () => observer.disconnect()
+  }, [target])
 
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled 
-          ? 'bg-slate-900/95 backdrop-blur-md border-b border-slate-800' 
-          : 'bg-transparent'
-      }`}
-    >
-      <div className="container-max">
-        <div className="flex items-center justify-between h-16 md:h-20">
-          {/* Logo */}
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            className="flex items-center space-x-2"
-          >
-            <div className="w-10 h-10 flex items-center justify-center">
-              {logoAnimation ? (
-                <Lottie
-                  animationData={logoAnimation}
-                  loop={true}
-                  autoplay={true}
-                  style={{
-                    width: '40px',
-                    height: '40px'
-                  }}
-                />
-              ) : (
-                <div className="w-10 h-10 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-lg">M</span>
-                </div>
-              )}
-            </div>
-            <span className="text-xl font-bold gradient-text hidden sm:block">
-              Mubin
-            </span>
-          </motion.div>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            {navItems.map((item, index) => (
-              <motion.button
-                key={item.name}
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
-                onClick={() => scrollToSection(item.href)}
-                className="relative text-slate-300 hover:text-cyan-400 transition-colors duration-300 font-medium group"
-              >
-                {item.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-cyan-400 transition-all duration-300 group-hover:w-full" />
-              </motion.button>
-            ))}
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden flex flex-col items-center justify-center w-8 h-8 space-y-1"
-          >
-            <motion.span
-              animate={isMobileMenuOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
-              className="w-6 h-0.5 bg-slate-300 transition-all duration-300"
-            />
-            <motion.span
-              animate={isMobileMenuOpen ? { opacity: 0 } : { opacity: 1 }}
-              className="w-6 h-0.5 bg-slate-300 transition-all duration-300"
-            />
-            <motion.span
-              animate={isMobileMenuOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
-              className="w-6 h-0.5 bg-slate-300 transition-all duration-300"
-            />
-          </button>
-        </div>
-
-        {/* Mobile Menu */}
-        <AnimatePresence>
-          {isMobileMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
-              className="md:hidden bg-slate-900/95 backdrop-blur-md border-t border-slate-800"
+    <>
+      <header id="site-nav" className={`${styles.nav} ${scrolled ? styles.scrolled : ''}`}>
+        <a className={styles.logo} href="#top" aria-label={`${site.name}, back to top`}>
+          <span className={styles.monogram} aria-hidden="true">
+            MH
+          </span>
+          <span className={styles.name} aria-hidden="true">
+            {site.name}
+          </span>
+        </a>
+        <nav ref={linksRef} className={styles.links} aria-label="Sections" onPointerLeave={() => setHovered(null)}>
+          <span
+            className={styles.indicator}
+            aria-hidden="true"
+            style={
+              indicator
+                ? { width: indicator.width, transform: `translateX(${indicator.left}px)`, opacity: 1 }
+                : { opacity: 0 }
+            }
+          />
+          {navItems.map(({ id, label }) => (
+            <a
+              key={id}
+              href={`#${id}`}
+              className={active === id ? styles.active : undefined}
+              aria-current={active === id ? 'true' : undefined}
+              onPointerEnter={() => setHovered(id)}
             >
-              <div className="py-4 space-y-2">
-                {navItems.map((item, index) => (
-                  <motion.button
-                    key={item.name}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                    onClick={() => scrollToSection(item.href)}
-                    className="block w-full text-left px-4 py-3 text-slate-300 hover:text-cyan-400 hover:bg-slate-800/50 transition-all duration-300 rounded-lg"
-                  >
-                    {item.name}
-                  </motion.button>
-                ))}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-    </motion.nav>
+              {label}
+            </a>
+          ))}
+        </nav>
+        <a className={styles.cta} href="#contact">
+          Get in touch
+        </a>
+        <button
+          type="button"
+          className={styles.menuButton}
+          aria-label="Open menu"
+          aria-expanded={menuOpen}
+          aria-controls="site-menu"
+          onClick={() => setMenuOpen(true)}
+        >
+          <i aria-hidden="true" />
+        </button>
+      </header>
+      <SideMenu open={menuOpen} active={active} onClose={() => setMenuOpen(false)} />
+    </>
   )
 }
 

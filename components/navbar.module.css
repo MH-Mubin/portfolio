@@ -1,0 +1,146 @@
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  height: var(--navH);
+  padding: 0 var(--gutter);
+  border-bottom: 1px solid transparent;
+  transition: background-color 0.4s, border-color 0.4s;
+}
+
+.scrolled {
+  background: rgba(9, 9, 11, 0.74);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  backdrop-filter: blur(14px) saturate(140%);
+  border-color: var(--line);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.monogram {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  background: var(--tx);
+  color: var(--bg);
+  font: 600 12px var(--mono);
+}
+
+.name,
+.links,
+.cta {
+  display: none;
+}
+
+.menuButton {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--line2);
+  border-radius: 12px;
+  transition: background-color 0.25s;
+}
+
+.menuButton:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.menuButton i,
+.menuButton i::before,
+.menuButton i::after {
+  display: block;
+  width: 16px;
+  height: 1.5px;
+  background: var(--tx);
+}
+
+.menuButton i {
+  position: relative;
+}
+
+.menuButton i::before,
+.menuButton i::after {
+  content: '';
+  position: absolute;
+  left: 0;
+}
+
+.menuButton i::before {
+  top: -5px;
+}
+
+.menuButton i::after {
+  top: 5px;
+}
+
+.indicator {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.085);
+  pointer-events: none;
+  transition: transform 0.5s var(--e), width 0.5s var(--e), opacity 0.3s;
+}
+
+@media (min-width: 641px) {
+  .name {
+    display: inline;
+  }
+}
+
+@media (min-width: 1101px) {
+  .menuButton {
+    display: none;
+  }
+
+  .links {
+    position: relative;
+    display: flex;
+    padding: 4px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  .links a {
+    position: relative;
+    z-index: 1;
+    padding: 7px 15px;
+    font-size: 13px;
+    color: var(--tx2);
+    transition: color 0.3s;
+  }
+
+  .links a:hover,
+  .links a.active {
+    color: var(--tx);
+  }
+
+  .cta {
+    display: inline-flex;
+    padding: 9px 16px;
+    border-radius: 999px;
+    background: var(--tx);
+    color: var(--bg);
+    font-size: 13px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+}
