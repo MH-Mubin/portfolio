@@ -1,0 +1,85 @@
+.form {
+  padding: 22px;
+}
+
+.form h3 {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.field {
+  margin-top: 20px;
+}
+
+.field label {
+  display: block;
+  margin-bottom: 8px;
+  font: 500 12px var(--mono);
+  color: var(--tx2);
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+  padding: 13px 14px;
+  border: 1px solid var(--line2);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.02);
+  font-size: 15px;
+  color: var(--tx);
+  transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s;
+}
+
+.field textarea {
+  min-height: 130px;
+  resize: vertical;
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: var(--tx3);
+}
+
+.field input:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--ac);
+  background: rgba(255, 255, 255, 0.035);
+  box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.15);
+}
+
+.honeypot {
+  display: none;
+}
+
+.submit {
+  width: 100%;
+  margin-top: 24px;
+}
+
+.submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.status {
+  min-height: 20px;
+  margin-top: 12px;
+  font: 13px var(--mono);
+  color: var(--tx2);
+}
+
+.status[data-status='success'] {
+  color: var(--ac);
+}
+
+.status[data-status='error'] {
+  color: #f87171;
+}
+
+@media (min-width: 641px) {
+  .form {
+    padding: 32px;
+  }
+}

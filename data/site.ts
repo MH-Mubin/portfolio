@@ -1,8 +1,5 @@
 export const site = {
   name: 'Mahmud Hasan Mubin',
-  shortName: 'Mubin',
-  role: 'SQA Engineer',
-  secondRole: 'Full-Stack Developer',
   headline: 'SQA Engineer & Full-Stack Developer',
   title: 'Mahmud Hasan Mubin — SQA Engineer & Full-Stack Developer',
   description:
@@ -15,19 +12,10 @@ export const site = {
     { title: 'SQA Engineer', detail: 'Test Automation & Systems Verification', kind: 'qa' },
     { title: 'Full-Stack Developer', detail: 'Node.js, NestJS, React & PostgreSQL', kind: 'dev' },
   ],
-  currentRole: {
-    title: 'SQA Engineer',
-    // The employer is deliberately not named anywhere on the site.
-    company: 'a software company',
-  },
   url: 'https://www.mh-mubin.me',
   email: 'mahmud.h.mubin@gmail.com',
   /** Edited by hand: GitHub's public count leaves out work in private repositories. */
   commitsLastYear: '130+',
-  phone: {
-    display: '+880 …',
-    href: 'tel:…',
-  },
   github: {
     username: 'MH-Mubin',
     url: 'https://github.com/MH-Mubin',
