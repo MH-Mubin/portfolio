@@ -53,3 +53,14 @@ QUICK_START.md
 README-2.md
 SETUP.md
 WHAT_WAS_BUILT.md
+# Playwright MCP output
+.playwright-mcp/
+
+# Brainstorm mockups
+.superpowers/
+
+# Personal notes (kept out of the public repo)
+SITE_ISSUES.md
+resume.md
+UI Suggestions.md
+CLAUDE.md
